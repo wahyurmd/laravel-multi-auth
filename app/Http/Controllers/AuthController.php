@@ -18,19 +18,29 @@ class AuthController extends Controller {
         ] );
 
         if ( Auth::attempt( $credentials ) ) {
-            $request->session()>regenerate();
-            return redirect()->intended( 'welcome' );
+            $user = Auth::user();
+            $request->session()->regenerate();
+            if ( $user->role == 'Admin' ) {
+                return redirect()->intended( 'admin/welcome' );
+            } else {
+                return redirect()->intended( 'welcome' );
+            }
         }
 
         return back()->with( 'error', 'Email or Password Wrong!' );
-
-        // dd( 'berhasil login!' );
-
-        // $credentials = $request->only( 'email', 'password' );
     }
 
     public function register() {
         return view( 'register' );
+    }
+
+    public function logout( Request $request ) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route( 'login' );
     }
 
 }

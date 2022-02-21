@@ -30,39 +30,43 @@
     </style>
 </head>
 <body class="text-center">
-    
+
     <main class="form-signin">
-        <form action="/login" method="post">
-          @csrf
-            <img class="mb-4" src="{{ asset('img/bootstrap-logo.svg') }}" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-            @if (session('error'))
-              <div class="alert alert-danger">
-                {{ session('error') }}
-              </div>
-            @endif
-
-            <div class="form-floating">
-              <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="name@example.com" autofocus required value="{{ old('email') }}">
-              <label for="floatingInput">Email address</label>
-              @error('email')
-                <div class="invalid-feedback text-start">
-                  {{ $message }}
+      <div class="card">
+        <div class="card-body">
+          <form action="/login" method="post">
+            @csrf
+              <img class="mb-4" src="{{ asset('img/bootstrap-logo.svg') }}" alt="" width="72" height="57">
+              <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+  
+              @if (session('error'))
+                <div class="alert alert-danger">
+                  {{ session('error') }}
                 </div>
-              @enderror
-            </div>
-            <div class="form-floating">
-              <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
-              <label for="floatingPassword">Password</label>
-            </div>
-
-            <button class="w-100 btn btn-lg btn-primary" type="submit"><i class="bi bi-box-arrow-in-right"></i> Sign in</button>
-        </form>
-        <label>
-            <small>No registerd? <a href="{{ route('register.store') }}">Register Now</a></small>
-        </label>
-        <p class="mt-5 mb-3 text-muted">&copy; Synodev</p>
+              @endif
+  
+              <div class="form-floating">
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="name@example.com" autofocus required value="{{ old('email') }}">
+                <label for="floatingInput">Email address</label>
+                @error('email')
+                  <div class="invalid-feedback text-start">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
+                <label for="floatingPassword">Password</label>
+              </div>
+  
+              <button class="w-100 btn btn-lg btn-primary" type="submit"><i class="bi bi-box-arrow-in-right"></i> Sign in</button>
+          </form>
+          <label>
+              <small>No registerd? <a href="{{ route('register.store') }}">Register Now</a></small>
+          </label>
+          <p class="mt-5 mb-3 text-muted">&copy; Synodev</p>
+        </div>
+      </div>
     </main>
     
 </body>

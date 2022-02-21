@@ -18,10 +18,19 @@ use App\Http\Controllers\AuthController;
 //     return view('welcome');
 // });
 
-Route::get('/', [AuthController::class, 'index'])->name('login');
+Route::get('/', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'postLogin']);
-Route::get('/register', [AuthController::class, 'register'])->name('register.store');
+Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/welcome', function() {
-    return view('welcome');
+Route::get('/register', [AuthController::class, 'register'])->name('register.store')->middleware('guest');
+
+Route::middleware(['auth', 'cekrole:Admin'])->group(function () {
+    Route::get('/admin/welcome', function() {
+        return view('welcome');
+    });
+});
+Route::middleware(['auth', 'cekrole:Pegawai'])->group(function () {
+    Route::get('/welcome', function() {
+        return view('welcome');
+    });
 });
